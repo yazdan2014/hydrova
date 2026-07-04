@@ -26,10 +26,21 @@ class Command(BaseCommand):
             user.set_password('demo12345')
             user.save()
 
-        Machine.objects.get_or_create(
+        machine, _ = Machine.objects.get_or_create(
             serial='DEMO-001',
-            defaults={'title': 'آب‌ساز هوشمند شماره ۱', 'location': 'لابی ساختمان', 'online': True, 'last_seen': timezone.now()},
+            defaults={
+                'title': 'آب‌ساز هوشمند شماره ۱',
+                'location': 'لابی ساختمان',
+                'online': True,
+                'last_seen': timezone.now(),
+                'api_key': 'demo-machine-key',
+            },
         )
+        if machine.api_key != 'demo-machine-key':
+            machine.api_key = 'demo-machine-key'
+            machine.online = True
+            machine.last_seen = timezone.now()
+            machine.save(update_fields=['api_key', 'online', 'last_seen'])
 
         Subscription.objects.get_or_create(
             user=user,
@@ -37,4 +48,4 @@ class Command(BaseCommand):
             defaults={'plan': created_plans[1], 'liters_total': created_plans[1].monthly_liters, 'liters_used': 24},
         )
 
-        self.stdout.write(self.style.SUCCESS('Demo data is ready. username=demo password=demo12345'))
+        self.stdout.write(self.style.SUCCESS('Demo data is ready. username=demo password=demo12345 machine_key=demo-machine-key'))
