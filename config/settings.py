@@ -1,7 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
 import os
-
 from corsheaders.defaults import default_headers
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,12 +79,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
-
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'x-machine-key',
 ]
-
 CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {

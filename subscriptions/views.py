@@ -152,7 +152,7 @@ class CreateQRSessionView(APIView):
             token=token,
             expires_at=now + timedelta(seconds=90),
         )
-        qr_url = f'{frontend_base_url()}/dispense/{session.token}'
+        qr_url = f'{frontend_base_url()}/dashboard/dispense/{session.token}'
         return Response({
             'session': QRSessionSerializer(session).data,
             'qr_url': qr_url,
