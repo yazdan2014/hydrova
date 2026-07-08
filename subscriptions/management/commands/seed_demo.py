@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from subscriptions.models import Machine, Plan, Subscription
+from subscriptions.models import Plan, Subscription
+from vending.models import Machine
 
 
 class Command(BaseCommand):

@@ -4,15 +4,18 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from accounts.views import MeView, RegisterView, UserSettingsView
 from subscriptions.views import (
+    DashboardSummaryView,
+    PlanViewSet,
+    SubscriptionViewSet,
+)
+from vending.views import (
     ConfirmDispenseView,
     CreateQRSessionView,
-    DashboardSummaryView,
+    DirectDispenseView,
     MachineHeartbeatView,
     MachineViewSet,
-    PlanViewSet,
     QRSessionDetailView,
     SimulateDispenseView,
-    SubscriptionViewSet,
 )
 
 router = DefaultRouter()
@@ -31,6 +34,7 @@ urlpatterns = [
     path('api/dashboard/simulate-dispense/', SimulateDispenseView.as_view(), name='simulate-dispense'),
     path('api/machines/<str:serial>/qr-session/', CreateQRSessionView.as_view(), name='machine-qr-session'),
     path('api/machines/<str:serial>/heartbeat/', MachineHeartbeatView.as_view(), name='machine-heartbeat'),
+    path('api/machines/<str:serial>/direct-dispense/', DirectDispenseView.as_view(), name='machine-direct-dispense'),
     path('api/dispense/session/<str:token>/', QRSessionDetailView.as_view(), name='dispense-session'),
     path('api/dispense/session/<str:token>/confirm/', ConfirmDispenseView.as_view(), name='dispense-confirm'),
     path('api/', include(router.urls)),
